@@ -1,5 +1,7 @@
-﻿@{
-    var results = (List<(QuizApp.Models.Question Question, int UserAnswer, bool IsCorrect)>)ViewBag.Results;
+﻿@model dynamic
+@{
+    ViewBag.Title = "Result";
+    var results = ViewBag.Results as List<(QuizApp.Models.Question Question, int UserAnswer, bool IsCorrect)>;
 }
 
 <!DOCTYPE html>
@@ -7,42 +9,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Results</title>
+    <title>Result</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Quiz Completed!</h2>
-        <p class="text-center">You scored <span class="correct-answer">@ViewBag.Score</span> out of <span class="correct-answer">@ViewBag.TotalQuestions</span>.</p>
-
+        <h2 class="text-center">Quiz Results</h2>
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title">Results:</h3>
+                <h4 class="card-title">Your Score: @ViewBag.Score out of @ViewBag.TotalQuestions</h4>
+                <hr />
                 <ul class="list-group">
-                    @foreach (var result in results)
+                    @if (results != null)
                     {
-                        <li class="list-group-item">
-                            <strong>@result.Question.Text</strong><br />
-                            Your answer:
-                            <span class="@(result.IsCorrect ? "correct-answer" : "incorrect-answer")">
-                                @result.Question.Options[result.UserAnswer]
-                            </span><br />
-                            @if (!result.IsCorrect)
-                            {
-                                <span>
-                                    Correct answer: <strong>@result.Question.Options[result.Question.CorrectAnswerIndex]</strong>
-                                </span>
-                            }
-                        </li>
+                        @foreach (var result in results)
+                        {
+                            var questionText = result.Question.Text;
+                            var userAnswer = result.UserAnswer;
+                            var isCorrect = result.IsCorrect;
+                            var correctAnswerIndex = result.Question.CorrectAnswerIndex;
+
+                            <li class="list-group-item @((isCorrect ? "bg-success text-white" : "bg-danger text-white"))">
+                                <strong>@questionText</strong>
+                                <br />
+                                @if (isCorrect)
+                                {
+                                    <span>Correct Answer: @result.Question.Options[correctAnswerIndex]</span>
+                                }
+                                else
+                                {
+                                    <span>Wrong Answer: @result.Question.Options[userAnswer]</span>
+                                    <br />
+                                    <span>Correct Answer: @result.Question.Options[correctAnswerIndex]</span>
+                                }
+                            </li>
+                        }
                     }
                 </ul>
+                <form asp-action="Restart" method="post" class="mt-3">
+                    <button type="submit" class="btn btn-primary">Restart Quiz</button>
+                </form>
             </div>
         </div>
-
-        <form asp-action="Restart" method="post" class="mt-4">
-            <button type="submit" class="btn btn-custom">Restart Quiz</button>
-        </form>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

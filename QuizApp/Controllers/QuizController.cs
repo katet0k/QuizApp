@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuizApp.Models;
+using System.Collections.Generic;
 
 namespace QuizApp.Controllers
 {
@@ -18,13 +19,25 @@ namespace QuizApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_quiz.GetCurrentQuestion());
+            var currentQuestion = _quiz.GetCurrentQuestion();
+            if (currentQuestion == null)
+            {
+                return RedirectToAction("Result");
+            }
+
+            ViewBag.CurrentQuestionIndex = _quiz.CurrentQuestionIndex + 1; // +1 for 1-based index
+            ViewBag.TotalQuestions = _quiz.Questions.Count;
+
+            return View(currentQuestion);
         }
 
         [HttpPost]
         public IActionResult Index(int selectedAnswer, string action)
         {
-            _quiz.UserAnswers[_quiz.CurrentQuestionIndex] = selectedAnswer;
+            if (_quiz.CurrentQuestionIndex >= 0 && _quiz.CurrentQuestionIndex < _quiz.Questions.Count)
+            {
+                _quiz.UserAnswers[_quiz.CurrentQuestionIndex] = selectedAnswer;
+            }
 
             if (action == "Next")
             {
@@ -36,15 +49,23 @@ namespace QuizApp.Controllers
                 return RedirectToAction("Result");
             }
 
-            return View(_quiz.GetCurrentQuestion());
-        }
+            var currentQuestion = _quiz.GetCurrentQuestion();
+            if (currentQuestion == null)
+            {
+                return RedirectToAction("Result");
+            }
 
+            ViewBag.CurrentQuestionIndex = _quiz.CurrentQuestionIndex + 1;
+            ViewBag.TotalQuestions = _quiz.Questions.Count;
+
+            return View(currentQuestion);
+        }
         public IActionResult Result()
         {
-            int score = 0;
-
             var results = new List<(Question Question, int UserAnswer, bool IsCorrect)>();
-            for (int i = 0; i <= _quiz.CurrentQuestionIndex; i++)
+            var score = 0;
+
+            for (int i = 0; i < _quiz.Questions.Count; i++)
             {
                 var isCorrect = _quiz.UserAnswers[i] == _quiz.Questions[i].CorrectAnswerIndex;
                 if (isCorrect)
@@ -54,12 +75,13 @@ namespace QuizApp.Controllers
                 results.Add((_quiz.Questions[i], _quiz.UserAnswers[i], isCorrect));
             }
 
+            ViewBag.Results = results;
             ViewBag.Score = score;
             ViewBag.TotalQuestions = _quiz.Questions.Count;
-            ViewBag.Results = results;
 
             return View();
         }
+
 
         [HttpPost]
         public IActionResult Restart()
