@@ -1,0 +1,52 @@
+﻿@{
+    var results = (List<(QuizApp.Models.Question Question, int UserAnswer, bool IsCorrect)>)ViewBag.Results;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Quiz Completed!</h2>
+        <p class="text-center">You scored <span class="correct-answer">@ViewBag.Score</span> out of <span class="correct-answer">@ViewBag.TotalQuestions</span>.</p>
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Results:</h3>
+                <ul class="list-group">
+                    @foreach (var result in results)
+                    {
+                        <li class="list-group-item">
+                            <strong>@result.Question.Text</strong><br />
+                            Your answer:
+                            <span class="@(result.IsCorrect ? "correct-answer" : "incorrect-answer")">
+                                @result.Question.Options[result.UserAnswer]
+                            </span><br />
+                            @if (!result.IsCorrect)
+                            {
+                                <span>
+                                    Correct answer: <strong>@result.Question.Options[result.Question.CorrectAnswerIndex]</strong>
+                                </span>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <form asp-action="Restart" method="post" class="mt-4">
+            <button type="submit" class="btn btn-custom">Restart Quiz</button>
+        </form>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

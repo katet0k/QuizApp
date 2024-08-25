@@ -1,0 +1,65 @@
+﻿body {
+    background: linear-gradient(to right, #f4f7f6, #ffffff);
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    max-height: 300px; 
+    max-width: 300px;
+    overflow: auto; 
+}
+
+.card-body {
+    overflow: auto; 
+}
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+.btn-custom {
+    background-color: #28a745;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+    .btn-custom:hover {
+        background-color: #218838;
+    }
+
+.btn-danger-custom {
+    background-color: #dc3545;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+    .btn-danger-custom:hover {
+        background-color: #c82333;
+    }
+
+.correct-answer {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.incorrect-answer {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.correct-answer + .correct {
+    display: block;
+    color: #333;
+}
+
+.incorrect-answer + .correct {
+    display: block;
+    color: #333;
+}
