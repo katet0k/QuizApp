@@ -86,7 +86,7 @@ namespace QuizApp.Controllers
         [HttpPost]
         public IActionResult Restart()
         {
-            _quiz = new Quiz(); // Скидаємо вікторину
+            _quiz = new Quiz(); 
             return RedirectToAction("Index");
         }
     }

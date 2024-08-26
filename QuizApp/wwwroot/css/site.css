@@ -1,17 +1,13 @@
-﻿/* Основні стилі для сайту */
-
-/* Загальні налаштування шрифтів */
+﻿
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
-
-/* Стилі для заголовків */
+ 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-/* Основні кольори */
+ 
 .primary-bg {
     background-color: #007bff;
     color: #fff;
@@ -31,8 +27,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #dc3545;
     color: #fff;
 }
-
-/* Картки результатів */
+ 
 .card {
     border: 1px solid #ddd;
     border-radius: 0.25rem;
@@ -46,8 +41,7 @@ h1, h2, h3, h4, h5, h6 {
 .card-body {
     padding: 1.25rem;
 }
-
-/* Виправлення стилів для форм */
+ 
 .form-check {
     margin-bottom: 0.5rem;
 }
@@ -55,8 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-check-input {
     margin-top: 0.3rem;
 }
-
-/* Секції для результатів вікторини */
+ 
 .result-item {
     padding: 10px;
     margin-bottom: 10px;
@@ -70,8 +63,7 @@ h1, h2, h3, h4, h5, h6 {
     .result-item.incorrect {
         color: #fff;
     }
-
-/* Відступи та розташування */
+     
 .container {
     max-width: 960px;
     margin: 0 auto;
@@ -85,11 +77,12 @@ h1, h2, h3, h4, h5, h6 {
 .mb-3 {
     margin-bottom: 1rem;
 }
-
-/* Футер */
+ 
 footer {
     background-color: #f8f9fa;
     padding: 1rem;
     text-align: center;
     border-top: 1px solid #ddd;
 }
+
+

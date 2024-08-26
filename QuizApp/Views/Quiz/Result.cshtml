@@ -30,16 +30,20 @@
                             var isCorrect = result.IsCorrect;
                             var correctAnswerIndex = result.Question.CorrectAnswerIndex;
 
-                            <li class="list-group-item @((isCorrect ? "bg-success text-white" : "bg-danger text-white"))">
+                            <li class="list-group-item">
                                 <strong>@questionText</strong>
                                 <br />
                                 @if (isCorrect)
                                 {
-                                    <span>Correct Answer: @result.Question.Options[correctAnswerIndex]</span>
+                                    <span>
+                                        Your Answer: <span style="color: limegreen; font-style:italic; "> @result.Question.Options[userAnswer] (Correct)</span>
+                                    </span>
+
                                 }
                                 else
                                 {
-                                    <span>Wrong Answer: @result.Question.Options[userAnswer]</span>
+                                    <span>
+                                        Your Answer: <span style="color: red; font-style:italic; "> @result.Question.Options[userAnswer] (Incorrect)</span></span>
                                     <br />
                                     <span>Correct Answer: @result.Question.Options[correctAnswerIndex]</span>
                                 }

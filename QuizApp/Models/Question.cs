@@ -31,7 +31,6 @@ namespace QuizApp.Models
                     Options = new List<string> { "Rome", "Madrid", "Paris", "Berlin" },
                     CorrectAnswerIndex = 2
                 },
-                // Додати решту питань тут
                 new Question
                 {
                     Text = "What is the largest ocean on Earth?",
@@ -44,7 +43,6 @@ namespace QuizApp.Models
                     Options = new List<string> { "Harper Lee", "J.K. Rowling", "Ernest Hemingway", "Mark Twain" },
                     CorrectAnswerIndex = 0
                 },
-                // Додаємо більше питань
                 new Question
                 {
                     Text = "Which element has the chemical symbol 'O'?",
